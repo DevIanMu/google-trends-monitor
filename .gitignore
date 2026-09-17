@@ -1,0 +1,10 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 运行时产物（扫描结果与累计新词表为本地状态，不入库）
+output/
+
+# 系统文件
+Thumbs.db
+.DS_Store

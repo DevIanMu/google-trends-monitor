@@ -1,0 +1,62 @@
+# Google Trends 新词监测词根清单（每行一个词根，# 开头为注释）
+# ① 生成与创造类
+Generator
+Creator
+Maker
+Builder
+Designer
+Constructor
+Composer
+# ② 转换与处理类
+Convert
+Converter
+Translator
+Editor
+Modifier
+Optimizer
+Processor
+Humanizer
+# ③ 提取与查看类
+Extractor
+Viewer
+Downloader
+Finder
+Explorer
+Scraper
+Crawler
+# ④ 分析与评估类
+Analyzer
+Checker
+Detector
+Evaluator
+Comparator
+Tester
+# ⑤ 辅助与工具类
+Calculator
+Planner
+Scheduler
+Tracker
+Monitor
+Recorder
+Dashboard
+Notifier
+# ⑥ 内容与示例类
+Example
+Template
+Sample
+Guide
+FAQ
+Hint
+Cheat
+# ⑦ 格式化与同步类
+Formatter
+Syncer
+Connector
+Navigator
+# ⑧ 汇总与目录类
+Cataloger
+Directory
+List
+Summary
+Summarizer
+Portal
