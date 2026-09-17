@@ -114,28 +114,13 @@ Digest
 Hub
 Wiki
 Feed
-# ⑨ 中文工具类
-生成器
-制作器
-转换器
-编辑器
-助手
-工具箱
-神器
-计算器
-识别器
-检测器
-提取器
-下载器
-总结器
-优化器
-模拟器
-# ⑩ 日语工具类
+# ⑨ 日语工具类
 ジェネレーター
 メーカー
 変換
 作成
 生成
+診断
 チェッカー
 解析
 要約
@@ -143,21 +128,7 @@ Feed
 ダウンローダー
 ツール
 無料
-# ⑪ 韩语工具类
-생성기
-변환기
-제작기
-생성
-변환
-제작
-체커
-분석기
-계산기
-요약
-편집기
-다운로더
-도구
-# ⑫ 西班牙语工具类
+# ⑩ 西班牙语工具类
 generador
 convertidor
 creador
@@ -171,7 +142,8 @@ resumen
 traductor
 gratis
 online
-# ⑬ 葡萄牙语工具类
+hacer
+# ⑪ 葡萄牙语工具类
 gerador
 conversor
 criador
@@ -183,12 +155,45 @@ resumo
 tradutor
 grátis
 online
-# ⑭ 德语工具类
+baixar
+fazer
+# ⑫ 德语工具类
 Konverter
 Ersteller
 Rechner
 Übersetzer
-Analysator
+Analyse
 Zusammenfassung
 Download
 Kostenlos
+umwandeln
+erstellen
+# ⑬ 法语工具类
+générateur
+convertisseur
+créateur
+éditeur
+calculatrice
+résumé
+traducteur
+gratuit
+en ligne
+faire
+télécharger
+outil
+# ⑭ 韩语工具类
+생성기
+변환기
+제작기
+생성
+변환
+제작
+만들기
+체커
+분석기
+계산기
+요약
+편집기
+다운로더
+도구
+무료
