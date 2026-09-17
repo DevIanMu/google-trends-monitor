@@ -7,6 +7,9 @@ Builder
 Designer
 Constructor
 Composer
+Architect
+Producer
+Synthesizer
 # ② 转换与处理类
 Convert
 Converter
@@ -20,6 +23,15 @@ Remove
 Remover
 Write
 Writer
+Rewriter
+Paraphraser
+Enhancer
+Improver
+Cleaner
+Compressor
+Expander
+Shortener
+Simplifier
 # ③ 提取与查看类
 Extractor
 Viewer
@@ -28,6 +40,10 @@ Finder
 Explorer
 Scraper
 Crawler
+Reader
+Parser
+Retriever
+Fetcher
 # ④ 分析与评估类
 Analyzer
 Checker
@@ -35,6 +51,12 @@ Detector
 Evaluator
 Comparator
 Tester
+Inspector
+Reviewer
+Validator
+Verifier
+Scanner
+Grader
 # ⑤ 辅助与工具类
 Calculator
 Planner
@@ -44,6 +66,12 @@ Monitor
 Recorder
 Dashboard
 Notifier
+Assistant
+Agent
+Helper
+Copilot
+Reminder
+Timer
 # ⑥ 内容与示例类
 Example
 Template
@@ -52,11 +80,25 @@ Guide
 FAQ
 Hint
 Cheat
+Demo
+Tutorial
+Prompt
+Blueprint
+Checklist
+Recipe
+Snippet
 # ⑦ 格式化与同步类
 Formatter
 Syncer
 Connector
 Navigator
+Importer
+Exporter
+Migrator
+Backup
+Organizer
+Sorter
+Mapper
 # ⑧ 汇总与目录类
 Cataloger
 Directory
@@ -64,3 +106,11 @@ List
 Summary
 Summarizer
 Portal
+Index
+Registry
+Archive
+Gallery
+Digest
+Hub
+Wiki
+Feed
