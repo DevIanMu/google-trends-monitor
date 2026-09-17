@@ -26,9 +26,10 @@ python trends_scan.py --limit 3       # 只扫前 3 个词根（调试）
 
 1. 词根「热度上升的查询」中筛出变化 ≥ `MIN_RISE`（默认 1000%，"Breakout" 记为 5000%）；
 2. 候选词与基准词 `GPTs` 对比过去 7 天：按 GPTs 日均 5000 次搜索估算候选词搜索量，
-   标记 `rising_trend`（后 3 天均值 > 前 3 天）与 `exceeds_baseline`（近 3 天均值 ≥ GPTs）；
-3. 对有看点的候选词拉取过去一年数据：`year_max_before` ≤ 1 判定为 `is_new`；
-4. `is_new` 且（上升 或 超过基准词）→ 写入新词表。
+   标记 `rising_trend`（后 3 天均值 > 前 3 天）与 `exceeds_baseline`（仅展示）；
+3. 对上升且体量达标（估算日搜索量 ≥ `MIN_EST_DAILY`，默认 50）的候选词拉取过去一年数据：
+   `year_max_before` ≤ 1 判定为 `is_new`；
+4. `is_new` 且上升且体量达标 → 写入新词表。
 
 ## 注意事项
 

@@ -85,12 +85,14 @@ Google 对未授权接口按 **IP + 客户端指纹** 限流，触发后该 IP �
 | `cand_avg7` / `baseline_avg7` | 候选词 / GPTs 过去 7 天平均热度指数 |
 | `est_daily` | 估算日搜索量（相对 GPTs 日均 5000 次的比值） |
 | `rising_trend` | 后 3 天均值 > 前 3 天 |
-| `exceeds_baseline` | 近 3 天均值 ≥ GPTs |
+| `exceeds_baseline` | 近 3 天均值 ≥ GPTs（**仅展示，不参与判定**） |
 | `year_max_before` / `nonzero_days_before` | 近 21 天之前一年的最大热度 / 非零天数 |
 | `is_new` | `year_max_before` ≤ 1 |
 | `first_seen` | 仅累计表有：首次入库日期 |
 
-入库规则：`is_new` 且（`rising_trend` 或 `exceeds_baseline`）。
+入库规则：`is_new` 且 `rising_trend` 且 `est_daily` ≥ `MIN_EST_DAILY`（默认 50 次/日）。
+（2026-09 调整：原 `exceeds_baseline` 门槛因组内归一化对新词几乎永不触发，且会误伤
+非英语词根；改为绝对体量下限挡 0→1 噪声，`exceeds_baseline` 降级为展示字段。）
 
 ## 8. 环境与已知坑
 

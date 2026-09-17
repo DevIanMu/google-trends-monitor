@@ -5,8 +5,9 @@ Google Trends 新词监测脚本
 流程（对应手动操作）：
 1. 对每个词根，取「热度上升的查询」(related_queries rising)，筛出变化 >= MIN_RISE 的词；
 2. 候选词与基准词 GPTs 对比（过去 7 天），按基准词日均搜索量估算候选词搜索量，
-   判断是否处于上升态势、是否有超过 GPTs 的趋势；
-3. 对通过对比的词，拉取过去 1 年数据，若此前热度基本为 0 则判定为「新词」；
+   判断是否处于上升态势（后 3 天 > 前 3 天）；
+3. 对上升且体量达标（估算日搜索量 >= MIN_EST_DAILY）的词，拉取过去 1 年数据，
+   若此前热度基本为 0 则判定为「新词」（exceeds_baseline 仅展示，不参与判定）；
 4. 结果写入 output/scan_YYYY-MM-DD.xlsx，并把新词合并进 output/new_words_table.xlsx（累计表，按词去重）。
 
 用法：
@@ -32,6 +33,7 @@ from pytrends import exceptions as pytrends_exc
 # ---------------- 配置 ----------------
 BASELINE_TERM = "GPTs"          # 对比基准词
 BASELINE_DAILY_SEARCHES = 5000  # 基准词日均搜索量（用于估算候选词搜索量）
+MIN_EST_DAILY = 50              # 入库体量下限：估算日搜索量 >= 该值（GPTs 的 1%），挡掉热度指数个位数的幽灵词
 GEO = ""                        # 地区："" = 全球
 TIMEFRAME_RISING = "now 7-d"    # 上升查询的时间窗
 TIMEFRAME_COMPARE = "now 7-d"   # 与基准词对比的时间窗
@@ -130,6 +132,14 @@ def analyze_compare(cand: str, cmp_df: pd.DataFrame) -> dict:
     return res
 
 
+def qualifies(row: dict) -> bool:
+    """入库热度门槛：处于 3 天上升态势，且估算日搜索量达到体量下限。
+    exceeds_baseline 仅作展示指标，不参与判定（新词体量天然远低于 GPTs，
+    组内归一化后该条件几乎永不触发；门槛设在绝对体量上才能挡住 0→1 的噪声）。"""
+    est = row.get("est_daily")
+    return bool(row.get("rising_trend")) and est is not None and est >= MIN_EST_DAILY
+
+
 def analyze_year(cand: str, year_df: pd.DataFrame, recent_days: int = 21) -> dict:
     """过去一年热度：此前是否基本为 0。"""
     res = {"year_max_before": None, "nonzero_days_before": None, "is_new": False}
@@ -220,9 +230,9 @@ def scan_roots(roots, min_rise: float, progress_file: Path = None, state: dict =
                     row.update({"year_max_before": 0, "nonzero_days_before": 0, "is_new": True})
                 candidates.append(row)
 
-        # 与基准词对比有看点（上升 或 接近/超过基准词）的候选，进入一年历史判定
+        # 处于上升态势且体量达标的候选，进入一年历史判定
         followups = [r["query"] for r in candidates
-                     if r["root"] == root and (r["exceeds_baseline"] or r["rising_trend"])
+                     if r["root"] == root and qualifies(r)
                      and r["query"].lower() not in known]
         for batch in chunks(followups, 5):
             try:
@@ -235,7 +245,7 @@ def scan_roots(roots, min_rise: float, progress_file: Path = None, state: dict =
                 for r in candidates:
                     if r["root"] == root and r["query"] == cand:
                         r.update(stats)
-                        if stats["is_new"] and (r["exceeds_baseline"] or r["rising_trend"]):
+                        if stats["is_new"] and qualifies(r):
                             new_words.append(dict(r))
                             known.add(cand.lower())
                         break
@@ -244,7 +254,7 @@ def scan_roots(roots, min_rise: float, progress_file: Path = None, state: dict =
     # 已知词若仍满足热度条件，也保留在 new_words 中（累计表会去重）
     seen = set()
     for r in candidates:
-        if r.get("is_new") and (r["exceeds_baseline"] or r["rising_trend"]):
+        if r.get("is_new") and qualifies(r):
             if r["query"].lower() not in seen:
                 seen.add(r["query"].lower())
                 if not any(n["query"] == r["query"] for n in new_words):
