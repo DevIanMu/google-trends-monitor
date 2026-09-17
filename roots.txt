@@ -16,6 +16,10 @@ Modifier
 Optimizer
 Processor
 Humanizer
+Remove
+Remover
+Write
+Writer
 # ③ 提取与查看类
 Extractor
 Viewer
